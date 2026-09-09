@@ -1,0 +1,254 @@
+.header {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid transparent;
+  background: color-mix(in srgb, var(--bbr-bg) 82%, transparent);
+  backdrop-filter: blur(18px);
+  transition:
+    border-color 200ms ease,
+    background 200ms ease;
+}
+
+.header::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(29 103 190 / 12%), transparent);
+  content: "";
+}
+
+.inner {
+  display: grid;
+  width: min(100% - 64px, var(--container));
+  height: var(--header-height);
+  margin: 0 auto;
+  align-items: center;
+  grid-template-columns: 170px 1fr 170px;
+}
+
+.logoLink {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 8px;
+}
+
+.logo {
+  display: block;
+  width: 112px;
+  height: auto;
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(22px, 3vw, 48px);
+}
+
+.desktopNav a {
+  position: relative;
+  padding: 14px 0;
+  color: var(--bbr-text);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.desktopNav a::after {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  left: 0;
+  height: 1px;
+  background: var(--bbr-primary);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.loginButton {
+  display: inline-flex;
+  min-height: 46px;
+  margin-left: auto;
+  padding: 0 21px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid color-mix(in srgb, var(--bbr-primary) 58%, white);
+  border-radius: 13px;
+  color: var(--bbr-primary);
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    color 200ms ease,
+    background 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.loginButton svg {
+  width: 18px;
+}
+
+.menuButton {
+  display: none;
+  width: 46px;
+  height: 46px;
+  margin-left: auto;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid var(--bbr-border);
+  border-radius: 13px;
+  background: rgb(255 255 255 / 66%);
+  color: var(--bbr-text);
+  cursor: pointer;
+}
+
+.menuButton span {
+  width: 19px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentcolor;
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.menuButton[aria-expanded="true"] span:first-child {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.menuButton[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.menuButton[aria-expanded="true"] span:last-child {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+.mobilePanel {
+  position: absolute;
+  top: var(--header-height);
+  right: 0;
+  left: 0;
+  visibility: hidden;
+  padding: 12px 24px 24px;
+  border-bottom: 1px solid var(--bbr-border);
+  background: rgb(248 251 255 / 97%);
+  box-shadow: var(--bbr-shadow-md);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms ease;
+}
+
+.mobilePanelOpen {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobilePanel nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobilePanel nav a {
+  padding: 15px 4px;
+  border-bottom: 1px solid rgb(23 61 108 / 8%);
+  color: var(--bbr-text);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.mobileLogin {
+  display: flex;
+  min-height: 52px;
+  margin-top: 18px;
+  padding: 0 18px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 14px;
+  background: var(--bbr-primary);
+  color: white;
+  font-weight: 700;
+}
+
+.mobileLogin svg {
+  width: 18px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desktopNav a:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .loginButton:hover {
+    background: var(--bbr-primary);
+    box-shadow: var(--bbr-shadow-blue);
+    color: white;
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .inner {
+    width: min(100% - 48px, var(--container));
+    grid-template-columns: 130px 1fr 116px;
+  }
+
+  .desktopNav {
+    gap: 20px;
+  }
+
+  .desktopNav a {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 840px) {
+  .inner {
+    width: calc(100% - 40px);
+    grid-template-columns: 1fr auto;
+  }
+
+  .desktopNav,
+  .loginButton {
+    display: none;
+  }
+
+  .menuButton {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner {
+    width: calc(100% - 32px);
+  }
+
+  .logo {
+    width: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menuButton span,
+  .mobilePanel {
+    transition: none;
+  }
+}

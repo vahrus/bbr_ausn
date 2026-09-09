@@ -1,0 +1,130 @@
+.faq {
+  padding: var(--section-space) 0;
+  background:
+    radial-gradient(circle at 15% 28%, rgb(100 176 243 / 8%), transparent 29%),
+    var(--bbr-bg);
+  scroll-margin-top: var(--header-height);
+}
+
+.layout {
+  display: grid;
+  align-items: start;
+  gap: clamp(55px, 8vw, 130px);
+  grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
+}
+
+.intro {
+  position: sticky;
+  top: calc(var(--header-height) + 45px);
+}
+
+.intro :global(.sectionLead) {
+  max-width: 390px;
+}
+
+.list {
+  border-top: 1px solid var(--bbr-border);
+}
+
+.item {
+  border-bottom: 1px solid var(--bbr-border);
+}
+
+.item h3 {
+  margin: 0;
+}
+
+.item button {
+  display: flex;
+  width: 100%;
+  min-height: 82px;
+  padding: 22px 2px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border: 0;
+  background: transparent;
+  color: var(--bbr-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: 680;
+  letter-spacing: -0.025em;
+  text-align: left;
+}
+
+.item button svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  color: var(--bbr-primary);
+  transition: transform 220ms ease;
+}
+
+.item button[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 250ms ease,
+    opacity 250ms ease;
+}
+
+.answer[aria-hidden="false"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.answer > div {
+  overflow: hidden;
+}
+
+.answer p {
+  max-width: 670px;
+  padding: 0 52px 26px 2px;
+  color: var(--bbr-text-secondary);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .item button:hover {
+    color: var(--bbr-primary);
+  }
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .intro {
+    position: static;
+  }
+}
+
+@media (max-width: 520px) {
+  .item button {
+    min-height: 72px;
+    padding: 19px 0;
+    gap: 16px;
+    font-size: 17px;
+  }
+
+  .answer p {
+    padding: 0 32px 22px 0;
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item button svg,
+  .answer {
+    transition: none;
+  }
+}

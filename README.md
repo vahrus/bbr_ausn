@@ -61,6 +61,25 @@ npm run typecheck
 npm run build
 ```
 
+## Развёртывание в Dokploy
+
+Проект содержит production `Dockerfile` с multi-stage сборкой на Node.js 22
+и запускает Next.js в standalone-режиме.
+
+В настройках Application укажите:
+
+- Build Type: `Dockerfile`;
+- Dockerfile Path: `Dockerfile`;
+- Docker Context Path: `.`;
+- Docker Build Stage: оставить пустым.
+
+Переменные `NIXPACKS_*` при этом не нужны. В разделе Domains укажите
+`Container Port: 3000`. Публиковать порт отдельно через Advanced → Ports
+не требуется: запросы к контейнеру направляет Traefik.
+
+После сохранения настроек нажмите Deploy. Команда запуска уже определена
+в Dockerfile.
+
 ## Запуск на сервере
 
 На сервере должны быть установлены Node.js `>=20.9.0` и npm.
